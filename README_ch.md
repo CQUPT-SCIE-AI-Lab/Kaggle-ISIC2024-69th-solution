@@ -30,7 +30,7 @@
 
 训练方面，我们尝试了不同的batch_size和lr组合进行训练，最终基于CNN网络选择了batch_size=32，lr=1e-3，效果最好；基于vit网络选择了batch_size=64，lr=1e-3，效果最好。但是我们在实验中发现vit的效果始终不如CNN，我们认为这可能和图像分辨率较小或者我们只使用了一些较小的基础vit模型有关。我们在96、128、160、192分辨率下进行了训练，在我们使用的网络上，160的分辨率效果最好，后续所有实验均在160分辨率下进行。
 
-我们使用的数据增强是参考 ISIC2020 的 [第1名解决方案](https://www.kaggle.com/competitions/siim-isic-melanoma-classification/discussion/175412) and ‘头发’ 增强。
+我们使用的数据增强是参考 ISIC2020 的 [第1名解决方案](https://www.kaggle.com/competitions/siim-isic-melanoma-classification/discussion/175412) 还有 ‘头发’ 增强。
 
 
 ```python
