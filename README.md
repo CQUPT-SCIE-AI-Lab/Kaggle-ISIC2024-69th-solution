@@ -14,9 +14,9 @@ The two notebooks we submitted:
 2. [https://www.kaggle.com/code/xiyan123/isic2024?scriptVersionId=195377751](https://www.kaggle.com/code/xiyan123/isic2024?scriptVersionId=195377751)(cv:0.1732  PublicLB:0.18304  PrivateLB:0.16217)(lgb_xgb_cb_with_onlyTabular Data)
 We noticed that after adding nn features to the table features, the importance of nn features far exceeded other features. In order to prevent excessive deviation, we also submitted a notebook that only uses table data.
 
-Here is the notebook for our training:
-train nn Model:[https://www.kaggle.com/code/zhiyue666/isic-2024-dl-model-training](https://www.kaggle.com/code/zhiyue666/isic-2024-dl-model-training)
-train nn ensemble Model:[https://www.kaggle.com/code/zhiyue666/isic-2024-nn-ensemble-training](https://www.kaggle.com/code/zhiyue666/isic-2024-nn-ensemble-training)
+Here is the notebook for our training: \
+train nn Model:[https://www.kaggle.com/code/zhiyue666/isic-2024-dl-model-training](https://www.kaggle.com/code/zhiyue666/isic-2024-dl-model-training) \
+train nn ensemble Model:[https://www.kaggle.com/code/zhiyue666/isic-2024-nn-ensemble-training](https://www.kaggle.com/code/zhiyue666/isic-2024-nn-ensemble-training) \
 train nnFeature to GBDT:[https://www.kaggle.com/code/zhiyue666/isic-2024-nnfeature-to-gbdt-training](https://www.kaggle.com/code/zhiyue666/isic-2024-nnfeature-to-gbdt-training)
 
 **== You can access the above notebook links directly in Kaggle, or in the src folder of this repository ==**
@@ -30,7 +30,7 @@ For both training and validation, we use StratifiedGroupKFold with patient_id as
 
 In terms of training, we tried different batch_size and lr combinations for training. Finally, we selected batch_size=32, lr=1e-3 based on CNN network, which had better results. Based on vit network, we selected batch_size=64, lr=1e-3, which had the best results. However, in our experiments, we found that the effect of vit was always inferior to CNN. We think this may be related to the small image resolution or the fact that we only used some small basic vit. We trained at 96, 128, 160, and 192 resolutions. On the network we used, the resolution of 160 was the best. All subsequent experiments were conducted at the resolution of 160.
 
-The data augmentation we use is the #1th solution for reference ISIC2020 [https://www.kaggle.com/competitions/siim-isic-melanoma-classification/discussion/175412](https://www.kaggle.com/competitions/siim-isic-melanoma-classification/discussion/175412) and ‘Hair’ augmentation.
+The data augmentation we use is the [#1th solution for reference ISIC2020](https://www.kaggle.com/competitions/siim-isic-melanoma-classification/discussion/175412) and ‘Hair’ augmentation.
 
 
 ```python
@@ -171,17 +171,17 @@ class ensemblelinear(nn.Module):
 Finally, we use this fusion model to fuse the outputs of the four NNs into one feature and pass it to the ML Model.
 
 # ML Part
-GBDT Model:
-This solution is an improvement based on this notebook
-[https://www.kaggle.com/code/vyacheslavbolotin/isic-2024-only-tabular-data-new-features](https://www.kaggle.com/code/vyacheslavbolotin/isic-2024-only-tabular-data-new-features)
-In terms of model:
+GBDT Model: \
+This solution is an improvement based on this notebook \
+[https://www.kaggle.com/code/vyacheslavbolotin/isic-2024-only-tabular-data-new-features](https://www.kaggle.com/code/vyacheslavbolotin/isic-2024-only-tabular-data-new-features) \
+In terms of model: \
 We also used xgb, lgb and cat models for fusion. Although the parameters did not change too much, we merged the models trained from six different seeds(The notebook with only tabular data merges 6 seeds, and the notebook with nnFeature merges 5 seeds.) again in the end, making the results of the models more stable()
 
-In feature engineering:
-Raw numerical feature num-cols
-The numerical feature new-num-cols is added
-Category Feature cat-cols
-Statistical patient case number characteristics special-cols
+In feature engineering: \
+Raw numerical feature num-cols \
+The numerical feature new-num-cols is added \
+Category Feature cat-cols \
+Statistical patient case number characteristics special-cols \
 The numerical feature norm-cols normalized to 'patient-id'
 
 In addition to the above features in the original notebook, we also calculated the features that normalized the 'patient-id' and 'tbp-lv-location' groups at the same time, which we believe can enable the model to learn information about different parts of different patients, so as to better classify the results.
